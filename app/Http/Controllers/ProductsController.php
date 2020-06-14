@@ -125,7 +125,6 @@ class ProductsController extends Controller
                     'description' => $request->description
                 ]);
         }else{
-
             $nama_file = time() . "_" . $file->getClientOriginalName();
             $tujuan_upload = storage_path('\app\public\images');
             $file->move($tujuan_upload, $nama_file);

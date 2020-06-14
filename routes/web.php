@@ -21,3 +21,7 @@ Route::resource('products', 'ProductsController');
 
 // Homes
 Route::resource('homes', 'HomesController');
+
+// Customers
+Route::get('/customers/nonaktif', 'CustomersController@customerNonAktif');
+Route::resource('customers', 'CustomersController');

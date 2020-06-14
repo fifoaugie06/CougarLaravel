@@ -5,8 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Comentar extends Model
+class Customer extends Model
 {
     use SoftDeletes;
-    //protected $fillable = ['']
+    protected $fillable = ['nama', 'alamat', 'kota', 'email'];
 }

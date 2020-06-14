@@ -27,7 +27,7 @@
                     <a class="nav-link" href="{{ url('/products') }}">Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Customer</a>
+                    <a class="nav-link" href="{{ url('/customers') }}">Customer</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Transaction</a>
