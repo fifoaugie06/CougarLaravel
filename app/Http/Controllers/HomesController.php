@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 
 class HomesController extends Controller
 {
     public function index()
     {
-        return view('home.index');
+        $product = Product::all();
+        return view('home.index', compact('product'));
     }
     public function create()
     {

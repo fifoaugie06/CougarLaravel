@@ -37,8 +37,30 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
+        $request->validate([
+            'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
+            'namabarang' => 'required',
+            'merk' => 'required',
+            'type' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
+            'description' => 'required'
+        ]);
 
+        $file = $request->file('gambar');
+        $nama_file = time() . "_" . $file->getClientOriginalName();
+        $tujuan_upload = storage_path('\app\public\images');
+        $file->move($tujuan_upload, $nama_file);
+
+        Product::create([
+            'gambar' => $nama_file,
+            'namabarang' => $request->namabarang,
+            'merk' => $request->merk,
+            'type' => $request->type,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+            'description' => $request->description
+        ]);
         return redirect('/products')->with('status', 'Data Berhasil Ditambahkan');
     }
 
@@ -59,31 +81,72 @@ class ProductsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        return view('product.update', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param \App\Product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'namabarang' => 'required',
+            'merk' => 'required',
+            'type' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
+            'description' => 'required'
+        ]);
+
+        $file = $request->file('gambar');
+
+        if (is_null($file)) {
+            Product::where('id', $product->id)
+                ->update([
+                    'gambar' => $product->gambar,
+                    'namabarang' => $request->namabarang,
+                    'merk' => $request->merk,
+                    'type' => $request->type,
+                    'harga' => $request->harga,
+                    'stok' => $request->stok,
+                    'description' => $request->description
+                ]);
+        }else{
+
+            $nama_file = time() . "_" . $file->getClientOriginalName();
+            $tujuan_upload = storage_path('\app\public\images');
+            $file->move($tujuan_upload, $nama_file);
+            Product::where('id', $product->id)
+                ->update([
+                    'gambar' => $nama_file,
+                    'namabarang' => $request->namabarang,
+                    'merk' => $request->merk,
+                    'type' => $request->type,
+                    'harga' => $request->harga,
+                    'stok' => $request->stok,
+                    'description' => $request->description
+                ]);
+        }
+
+        return redirect('/products')->with('status', 'Data Berhasil Diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param \App\Product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        Product::destroy($product->id);
+
+        return redirect('/products')->with('status', 'Data Berhasil Dihapus');
     }
 }

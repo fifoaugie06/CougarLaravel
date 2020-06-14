@@ -15,7 +15,7 @@
                                    aria-describedby="button-addon4">
                             <div class="input-group-append" id="button-addon4">
                                 <select id="filter" class="btn btn-outline-secondary" name="searchby">
-                                    <option value="nama_barang" >Nama Barang</option>
+                                    <option value="nama_barang">Nama Barang</option>
                                     <option value="merk">Merk</option>
                                     <option value="type">Type</option>
                                     <option value="harga">Harga</option>
@@ -33,11 +33,11 @@
                 </div>
             </div>
 
-        @if (session('status'))
-            <div class="alert alert-success mt-3">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Success!</strong> {{ session('status') }}
-            </div>
+            @if (session('status'))
+                <div class="alert alert-success mt-3">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Success!</strong> {{ session('status') }}
+                </div>
         @endif
 
         <!--TABEL-->
@@ -61,7 +61,7 @@
                     <tr class="content_td">
                         <td style="text-align: center">{{ $loop->iteration }}</td>
                         <td style="text-align: center">
-                            <a href="">Lihat Gambar</a>
+                            <a href="{{ url('storage/images/'.$product -> gambar) }}">Lihat Gambar</a>
                         </td>
                         <td style="text-align: center">{{ $product -> namabarang }}</td>
                         <td style="text-align: center">{{ $product -> merk }}</td>
@@ -70,11 +70,17 @@
                         <td style="text-align: center;">{{ $product -> harga }}</td>
                         <td style="text-align: center;">{{ $product -> stok }}</td>
                         <td style="text-align: center;">{{ $product -> created_at }}</td>
-                        <td id="aksi_edit" style="width: 50px;">
-                            <button class="update_product btn btn-outline-success" id="">Update</button>
+                        <td style="width: 50px;">
+                            <a href="/products/{{ $product->id }}/edit">
+                                <button class="btn btn-outline-success" id="">Update</button>
+                            </a>
                         </td>
-                        <td id="aksi_delete" style="width: 50px;">
-                            <button class="delete_product btn btn-outline-danger" id="">Delete</button>
+                        <td style="width: 50px;">
+                            <form action="/products/{{ $product->id }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-outline-danger" id="">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

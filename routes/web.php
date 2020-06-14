@@ -17,6 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomesController@index');
 
 // Products
-Route::get('/products', 'ProductsController@index');
-Route::get('/products/create', 'ProductsController@create');
-Route::post('/products', 'ProductsController@store');
+Route::resource('products', 'ProductsController');
