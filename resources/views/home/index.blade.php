@@ -2,6 +2,13 @@
 
 @section('title', 'Cougar Counter')
 
+@section('searchbox')
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+@endsection
+
 @section('container')
     <main role="main">
         <section class="jumbotron text-center">
@@ -13,32 +20,33 @@
             </div>
         </section>
         <div class="album py-5 bg-light">
-            <div class="container" style="padding: 0;">
-                <div class="row" style="margin-top: 22px;">
-                    <div class="col-md-4">
-                        <div class="card border-secondary mb-4 box-shadow" style="">
-                            <img class="card-img-top"
-                                 data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-                                 alt="Card image cap" src="">
-                            <div class="card-body">
-                                <h5 class="card-text">asd</h5>
-                                <p class="card-text">Rp.123</p>
-                                <p class="card-text">lorem</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <form action="#" method="post">
-                                        <div class="btn-group">
-                                            <input type="hidden" name="kode_barang" value="">
-                                            <input type="hidden" name="kode_pembeli" value="">
-                                            <button type="submit" class="btn btn-sm btn-outline-dark" name="order">
-                                                Order
-                                            </button>
-                                        </div>
-                                    </form>
-                                    <small class="text-muted">10 Tersisa</small>
+            <div class="container">
+                <div class="row">
+                    @foreach($products as $product)
+                        <div class="col-md-4">
+                            <div class="card border-secondary mb-4 box-shadow">
+                                <img class="card-img-top"
+                                     data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
+                                     alt="Card image cap" src="{{ url('storage/images/'.$product -> gambar) }}">
+                                <div class="card-body">
+                                    <h5 class="card-text">{{ $product->namabarang . ' ' .$product->merk . ' ' . $product->type }}</h5>
+                                    <p class="card-text">{{ 'Rp. ' . number_format($product->harga, 0) }}</p>
+                                    <p class="card-text">{{ \Illuminate\Support\Str::limit($product->description, 200, $end='...') }}</p>
+                                    <div class="d-flex justify-content-end align-items-center">
+                                        <a href="/products/{{ $product->id }}">
+                                            <div class="btn-group">
+                                                <input type="hidden" name="kode_barang" value="">
+                                                <input type="hidden" name="kode_pembeli" value="">
+                                                <button type="submit" class="btn btn-sm btn-outline-dark" name="order">
+                                                    Detail
+                                                </button>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

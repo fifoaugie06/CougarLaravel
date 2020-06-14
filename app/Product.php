@@ -12,4 +12,7 @@ class Product extends Model
     /**
      * @var mixed
      */
+    public function comentar(){
+        return $this->belongsTo(Comentar::class);
+    }
 }

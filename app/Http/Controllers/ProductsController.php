@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comentar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Product;
@@ -70,9 +71,15 @@ class ProductsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        $comentars = Comentar::where('product_id', $product->id)
+            ->join('customers', 'comentars.customer_id', '=', 'customers.id')
+            ->select('customers.nama', 'comentars.created_at', 'comentars.isi_komentar')
+            ->orderBy('comentars.created_at', 'desc')
+            ->get();
+
+        return view('home.detailproduct', compact('product', 'comentars'));
     }
 
     /**

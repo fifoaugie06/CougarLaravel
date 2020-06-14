@@ -9,8 +9,8 @@ class HomesController extends Controller
 {
     public function index()
     {
-        $product = Product::all();
-        return view('home.index', compact('product'));
+        $products = Product::all();
+        return view('home.index', compact('products'));
     }
     public function create()
     {
@@ -22,7 +22,7 @@ class HomesController extends Controller
     }
     public function show($id)
     {
-        //
+
     }
 
     public function edit($id)

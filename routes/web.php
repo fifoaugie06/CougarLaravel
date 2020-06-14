@@ -18,3 +18,6 @@ Route::get('/', 'HomesController@index');
 
 // Products
 Route::resource('products', 'ProductsController');
+
+// Homes
+Route::resource('homes', 'HomesController');
