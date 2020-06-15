@@ -7,6 +7,7 @@ use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Product;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
@@ -92,10 +93,14 @@ class ProductsController extends Controller
                 ->orderBy('comentars.created_at', 'desc')
                 ->get();
 
-            $likes = Like::where('product_id', $product->id)->get();
-            $likesCount = $likes->count();
+            $likesCount = Like::where('product_id', $product->id)->get()->count();
 
-            return view('home.detailproduct', compact('product', 'comentars', 'likesCount'));
+            $conditionLike = Like::where('product_id', $product->id)
+                ->where('customer_id', Session::get('id'))
+                ->get()
+                ->count();
+
+            return view('home.detailproduct', compact('product', 'comentars', 'likesCount', 'conditionLike'));
         }
     }
 

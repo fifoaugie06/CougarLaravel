@@ -27,8 +27,8 @@
                             Account
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item disabled">{{ \Illuminate\Support\Facades\Session::get('username') }}</a>
+                            <a class="dropdown-item disabled">{{ \Illuminate\Support\Facades\Session::get('email') }}</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/logout">Logout</a>
                         </div>

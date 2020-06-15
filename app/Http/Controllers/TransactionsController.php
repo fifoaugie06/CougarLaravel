@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Like;
+use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class LikesController extends Controller
+class TransactionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,25 +31,23 @@ class LikesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        Like::create([
-            'product_id' => $request->product_id,
-            'customer_id' => Session::get('id')
-        ]);
+        Transaction::create(array_merge($request->all(), ['customer_id' => strval(Session::get('id'))]));
+
         return redirect('/products/' . $request->product_id);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Like $like
+     * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Like $like)
+    public function show(Transaction $transaction)
     {
         //
     }
@@ -57,10 +55,10 @@ class LikesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Like $like
+     * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function edit(Like $like)
+    public function edit(Transaction $transaction)
     {
         //
     }
@@ -68,11 +66,11 @@ class LikesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Like $like
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Like $like)
+    public function update(Request $request, Transaction $transaction)
     {
         //
     }
@@ -80,15 +78,11 @@ class LikesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Like $like
+     * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Transaction $transaction)
     {
-        Like::where('product_id', $request->product_id)
-            ->where('customer_id', Session::get('id'))
-            ->firstOrFail()->delete();
-
-        return redirect('/products/' . $request->product_id);
+        //
     }
 }

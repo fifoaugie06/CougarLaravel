@@ -26,9 +26,16 @@ Route::resource('homes', 'HomesController');
 // Products
 Route::resource('products', 'ProductsController');
 
+// Likes
+Route::post('/unlikes', 'LikesController@destroy');
+Route::resource('likes', 'LikesController');
+
 // Customers
 Route::get('/customers/nonaktif', 'CustomersController@customerNonAktif');
 Route::resource('customers', 'CustomersController');
 
 // Comentars
 Route::resource('comentars', 'ComentarsController');
+
+// Transactions
+Route::resource('transactions', 'TransactionsController');

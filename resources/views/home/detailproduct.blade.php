@@ -15,16 +15,50 @@
             </div>
             <div class="card-footer">
                 <div class="d-flex justify-content-between">
-                    <div>
-                        <button type="submit" class="btn btn-sm btn-outline-primary" name="order">
-                            Like!
-                        </button>
-                        <button type="submit" class="btn btn-sm btn-outline-dark" name="order">
-                            Tambahkan Transaksi
-                        </button>
+                    <div class="d-flex justify-content-between">
+                        @if ($conditionLike == 0)
+                            <form method="POST" action="/likes">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="btn btn-sm btn-outline-primary" name="order">
+                                    Like!
+                                </button>
+                            </form>
+                        @else
+                            <form method="POST" action="/unlikes">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" name="order">
+                                    UnLike!
+                                </button>
+                            </form>
+                        @endif
+                        <form method="POST" action="/transactions">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <button type="submit" class="btn btn-sm btn-outline-dark ml-2">
+                                Beli Produk
+                            </button>
+                        </form>
                     </div>
-                    <p class="card-text"><small
-                            class="text-muted">{{ $likesCount . ' Orang Menyukai Produk ini' }}</small></p>
+                    <p class="card-text">
+                        <small
+                            class="text-muted">
+                            @if ($conditionLike == 0)
+                                @if ($likesCount != 0)
+                                    {{ $likesCount . ' Orang Menyukai Produk ini' }}
+                                @else
+                                    {{ 'Belum ada yang Menyukai Produk ini' }}
+                                @endif
+                            @else
+                                @if ($likesCount == 1)
+                                    {{ 'Anda Menyukai Produk ini' }}
+                                @else
+                                    {{ 'Anda, dan '. ($likesCount-1) . ' Orang Menyukai Produk ini' }}
+                                @endif
+                            @endif
+                        </small>
+                    </p>
                 </div>
             </div>
         </div>
