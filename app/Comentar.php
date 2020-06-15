@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Comentar extends Model
 {
     use SoftDeletes;
-    //protected $fillable = ['']
+    protected $fillable = ['isi_komentar', 'product_id', 'customer_id'];
 }

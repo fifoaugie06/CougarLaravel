@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comentar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ComentarsController extends Controller
 {
@@ -31,18 +32,23 @@ class ComentarsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        Comentar::create([
+            'isi_komentar' => $request->isi_komentar,
+            'product_id' => $request->product_id,
+            'customer_id' => Session::get('id')
+        ]);
+        return redirect('/products/' . $request->product_id);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comentar  $comentar
+     * @param \App\Comentar $comentar
      * @return \Illuminate\Http\Response
      */
     public function show(Comentar $comentar)
@@ -53,7 +59,7 @@ class ComentarsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Comentar  $comentar
+     * @param \App\Comentar $comentar
      * @return \Illuminate\Http\Response
      */
     public function edit(Comentar $comentar)
@@ -64,8 +70,8 @@ class ComentarsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comentar  $comentar
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Comentar $comentar
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Comentar $comentar)
@@ -76,7 +82,7 @@ class ComentarsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comentar  $comentar
+     * @param \App\Comentar $comentar
      * @return \Illuminate\Http\Response
      */
     public function destroy(Comentar $comentar)

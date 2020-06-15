@@ -33,14 +33,18 @@
             <div class="card-header">
                 Review
             </div>
-            <div class="card-body">
-                <textarea class="form-control" id="comment" name="comment" rows="5"></textarea>
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-outline-dark" name="order">
-                    Tambahkan Review
-                </button>
-            </div>
+            <form method="POST" action="/comentars">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <div class="card-body">
+                    <textarea class="form-control" id="comment" name="isi_komentar" rows="5"></textarea>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-sm btn-outline-dark">
+                        Tambahkan Review
+                    </button>
+                </div>
+            </form>
         </div>
         <div class="card mt-2 mb-5">
             @switch($comentars)

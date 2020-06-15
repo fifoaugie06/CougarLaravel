@@ -21,14 +21,14 @@ Route::post('/register', 'AuthController@store');
 Route::get('/logout', 'AuthController@logout');
 
 // Homes
-//Route::get('/', 'HomesController@index');
+Route::resource('homes', 'HomesController');
 
 // Products
 Route::resource('products', 'ProductsController');
 
-// Homes
-Route::resource('homes', 'HomesController');
-
 // Customers
 Route::get('/customers/nonaktif', 'CustomersController@customerNonAktif');
 Route::resource('customers', 'CustomersController');
+
+// Comentars
+Route::resource('comentars', 'ComentarsController');
