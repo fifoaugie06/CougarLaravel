@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comentar;
+use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Product;
@@ -79,7 +80,10 @@ class ProductsController extends Controller
             ->orderBy('comentars.created_at', 'desc')
             ->get();
 
-        return view('home.detailproduct', compact('product', 'comentars'));
+        $likes = Like::where('product_id', $product->id)->get();
+        $likesCount = $likes->count();
+
+        return view('home.detailproduct', compact('product', 'comentars', 'likesCount'));
     }
 
     /**

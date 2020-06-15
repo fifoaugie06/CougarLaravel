@@ -14,9 +14,18 @@
                 <p class="card-text"><small class="text-muted">{{ $product->stok . ' Tersisa' }}</small></p>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-outline-dark" name="order">
-                    Tambahkan Transaksi
-                </button>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <button type="submit" class="btn btn-sm btn-outline-primary" name="order">
+                            Like!
+                        </button>
+                        <button type="submit" class="btn btn-sm btn-outline-dark" name="order">
+                            Tambahkan Transaksi
+                        </button>
+                    </div>
+                    <p class="card-text"><small
+                            class="text-muted">{{ $likesCount . ' Orang Menyukai Produk ini' }}</small></p>
+                </div>
             </div>
         </div>
 
@@ -52,4 +61,5 @@
             @endswitch
         </div>
     </div>
+    @include('home.components.footer')
 @endsection
