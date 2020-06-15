@@ -7,6 +7,7 @@ use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Product;
+use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
 {
@@ -17,8 +18,12 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('product.index', compact('products'));
+        if (!Session::get('login')) {
+            return redirect('/');
+        } else {
+            $products = Product::all();
+            return view('product.index', compact('products'));
+        }
     }
 
     /**
@@ -28,7 +33,11 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        if (!Session::get('login')) {
+            return redirect('/');
+        } else {
+            return view('product.create');
+        }
     }
 
     /**
@@ -74,16 +83,20 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        $comentars = Comentar::where('product_id', $product->id)
-            ->join('customers', 'comentars.customer_id', '=', 'customers.id')
-            ->select('customers.nama', 'comentars.created_at', 'comentars.isi_komentar')
-            ->orderBy('comentars.created_at', 'desc')
-            ->get();
+        if (!Session::get('login')) {
+            return redirect('/');
+        } else {
+            $comentars = Comentar::where('product_id', $product->id)
+                ->join('customers', 'comentars.customer_id', '=', 'customers.id')
+                ->select('customers.nama', 'comentars.created_at', 'comentars.isi_komentar')
+                ->orderBy('comentars.created_at', 'desc')
+                ->get();
 
-        $likes = Like::where('product_id', $product->id)->get();
-        $likesCount = $likes->count();
+            $likes = Like::where('product_id', $product->id)->get();
+            $likesCount = $likes->count();
 
-        return view('home.detailproduct', compact('product', 'comentars', 'likesCount'));
+            return view('home.detailproduct', compact('product', 'comentars', 'likesCount'));
+        }
     }
 
     /**
@@ -94,7 +107,11 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('product.update', compact('product'));
+        if (!Session::get('login')) {
+            return redirect('/');
+        } else {
+            return view('product.update', compact('product'));
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class CustomersController extends Controller
@@ -16,14 +17,22 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
-        return view('customer.customer_aktif', compact('customers'));
+        if (!Session::get('login')) {
+            return redirect('/');
+        } else {
+            $customers = Customer::all();
+            return view('customer.customer_aktif', compact('customers'));
+        }
     }
 
     public function customerNonAktif()
     {
-        $customers = Customer::onlyTrashed()->get();
-        return view('customer.customer_nonaktif', compact('customers'));
+        if (!Session::get('login')) {
+            return redirect('/');
+        } else {
+            $customers = Customer::onlyTrashed()->get();
+            return view('customer.customer_nonaktif', compact('customers'));
+        }
     }
 
     /**
@@ -67,7 +76,11 @@ class CustomersController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return view('customer.components.update', compact('customer'));
+        if (!Session::get('login')) {
+            return redirect('/');
+        } else {
+            return view('customer.components.update', compact('customer'));
+        }
     }
 
     /**

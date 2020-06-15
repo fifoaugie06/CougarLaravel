@@ -66,7 +66,7 @@
                             <form action="/customers/{{ $customer->id }}" method="POST">
                                 @method('DELETE')
                                 @csrf
-                                <button class="btn btn-outline-danger" id="">Delete</button>
+                                <button class="btn btn-outline-danger" id="">Nonaktif</button>
                             </form>
                         </td>
                     </tr>

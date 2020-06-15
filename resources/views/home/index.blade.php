@@ -11,7 +11,7 @@
 
 @section('container')
     <main role="main">
-        <section class="jumbotron text-center">
+        <section class="jumbotron text-center mb-0">
             <div class="container" style="height: 300px; padding-top: 50px;">
                 <h1 class="jumbotron-heading text-white">Cougar Counter</h1>
                 <p class="lead text-white-50">Solusi Belanja Online Mudah dan Hemat <br>
@@ -19,7 +19,7 @@
                     Jika Barang yang Anda Cari tidak Tersedia di List Hubungi Kami.</p>
             </div>
         </section>
-        <div class="album py-5 bg-light">
+        <div class="album py-5 bg-light mt-5">
             <div class="container">
                 <div class="row">
                     @foreach($products as $product)

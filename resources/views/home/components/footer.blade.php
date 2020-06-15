@@ -1,4 +1,4 @@
-<footer class="footer text-center">
+<footer class="footer text-center mt-5">
     <div class="container">
         <div class="row">
             <!-- Footer Location-->
@@ -8,14 +8,14 @@
             </div>
             <!-- Footer Social Icons-->
             <div class="col-lg-4 mb-5 mb-lg-0">
-                <h4 class="text-uppercase mb-4">Around the Web</h4>
-                <a class="btn btn-outline-light btn-social mx-1" href="{{url('/')}}"><i
+                <h4 class="text-uppercase mb-4">Share Cougar Counter</h4>
+                <a class="btn btn-outline-light btn-social mx-1" href="{{url('/homes')}}"><i
                         class="fab fa-fw fa-facebook-f"></i></a><a class="btn btn-outline-light btn-social mx-1"
-                                                                   href="{{url('/')}}"><i
+                                                                   href="{{url('/homes')}}"><i
                         class="fab fa-fw fa-twitter"></i></a><a class="btn btn-outline-light btn-social mx-1"
-                                                                href="{{url('/')}}"><i
+                                                                href="{{url('/homes')}}"><i
                         class="fab fa-fw fa-linkedin-in"></i></a><a class="btn btn-outline-light btn-social mx-1"
-                                                                    href="{{url('/')}}"><i class="fab fa-fw fa-dribbble"></i></a>
+                                                                    href="{{url('/homes')}}"><i class="fab fa-fw fa-dribbble"></i></a>
             </div>
             <!-- Footer About Text-->
             <div class="col-lg-4">
@@ -28,5 +28,5 @@
 </footer>
 <!-- Copyright Section-->
 <div class="copyright py-4 text-center text-white">
-    <div class="container"><small>Copyright © Your Website 2020</small></div>
+    <div class="container"><small>Copyright © Cougar Counter Website 2020</small></div>
 </div>
