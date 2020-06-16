@@ -38,4 +38,5 @@ Route::resource('customers', 'CustomersController');
 Route::resource('comentars', 'ComentarsController');
 
 // Transactions
+Route::get('/transactions/export_excel', 'TransactionsController@export_excel');
 Route::resource('transactions', 'TransactionsController');

@@ -1,6 +1,7 @@
 @extends('layout.master')
 
 @section('title', 'Customers')
+@section('itemB', 'active')
 
 @section('container')
     <div class="container_content" style="padding: 22px;">

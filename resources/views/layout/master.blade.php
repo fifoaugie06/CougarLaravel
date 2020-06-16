@@ -11,14 +11,14 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item @yield('itemA')">
                         <a class="nav-link" href="{{ url('/products') }}">Product</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @yield('itemB')">
                         <a class="nav-link" href="{{ url('/customers') }}">Customer</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Transaction</a>
+                    <li class="nav-item @yield('itemC')">
+                        <a class="nav-link" href="{{ url('/transactions') }}">Transaction</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"

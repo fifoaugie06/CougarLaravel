@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
+use App\Exports\TransactionsExport;
+use App\Product;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionsController extends Controller
 {
@@ -15,7 +19,35 @@ class TransactionsController extends Controller
      */
     public function index()
     {
-        //
+        if (!Session::get('login')) {
+            return redirect('/');
+        } else {
+            $transactions = Transaction::withTrashed()
+                ->join('customers', 'customers.id', '=', 'transactions.customer_id')
+                ->join('products', 'products.id', '=', 'transactions.product_id')
+                ->select('customers.nama', 'customers.alamat', 'customers.kota', 'products.namabarang',
+                        'products.merk', 'products.type', 'products.harga', 'transactions.created_at')
+                ->orderBy('transactions.created_at', 'desc')
+                ->get();
+            $transactionsTotally = Transaction::withTrashed()->count();
+
+            $earningsTotally = Transaction::withTrashed()
+                ->join('products', 'products.id', '=', 'transactions.product_id')
+                ->sum('products.harga');
+
+            $totallyCustomer = Customer::withTrashed()->count();
+            $customerAktif = $totallyCustomer - Customer::all()->count();
+            $percentageCustomerAktif = $customerAktif/$totallyCustomer*100;
+
+            $productsCount = Product::all()->count();
+
+            return view('transaction.index', compact('transactions', 'transactionsTotally', 'earningsTotally', 'percentageCustomerAktif', 'productsCount'));
+        }
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new TransactionsExport(), 'transactions.xlsx');
     }
 
     /**
