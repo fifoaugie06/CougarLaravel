@@ -30,6 +30,7 @@ class TransactionsController extends Controller
                         'products.merk', 'products.type', 'products.harga', 'transactions.created_at')
                 ->orderBy('transactions.created_at', 'desc')
                 ->get();
+
             $transactionsTotally = Transaction::withTrashed()->count();
 
             $earningsTotally = Transaction::withTrashed()
