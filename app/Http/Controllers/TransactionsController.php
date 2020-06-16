@@ -7,6 +7,7 @@ use App\Exports\TransactionsExport;
 use App\Product;
 use App\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -70,7 +71,12 @@ class TransactionsController extends Controller
     {
         Transaction::create(array_merge($request->all(), ['customer_id' => strval(Session::get('id'))]));
 
-        return redirect('/products/' . $request->product_id);
+        Product::where('id', $request->product_id)
+            ->update([
+               'stok' => DB::raw('stok-1')
+            ]);
+
+        return redirect('/products/' . $request->product_id)->with('modal', 'Berhasil Membeli Product');
     }
 
     /**

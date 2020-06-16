@@ -8,21 +8,15 @@
         <div class="container_content">
             <!--Button Cari dan Input Data-->
             <div class="container_top">
-                <form action="" method="POST">
+                <form action="{{ url('/products/search') }}" method="POST">
+                    @csrf
                     <div class="item_search">
                         <div class="input-group">
                             <input name="keyword" type="text" class="form-control" placeholder="Masukkan Pencarian"
                                    aria-label="Recipient's username with two button addons"
                                    aria-describedby="button-addon4">
                             <div class="input-group-append" id="button-addon4">
-                                <select id="filter" class="btn btn-outline-secondary" name="searchby">
-                                    <option value="nama_barang">Nama Barang</option>
-                                    <option value="merk">Merk</option>
-                                    <option value="type">Type</option>
-                                    <option value="harga">Harga</option>
-                                    <option value="stok">Stok</option>
-                                </select>
-                                <button class="btn btn-outline-secondary" type="submit" name="cari">Cari</button>
+                                <button type="submit" class="btn btn-outline-secondary" name="search">Cari</button>
                             </div>
                         </div>
                     </div>

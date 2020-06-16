@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Comentar;
 use App\Like;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use App\Product;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
@@ -73,6 +71,7 @@ class ProductsController extends Controller
             'stok' => $request->stok,
             'description' => $request->description
         ]);
+
         return redirect('/products')->with('status', 'Data Berhasil Ditambahkan');
     }
 
@@ -100,7 +99,9 @@ class ProductsController extends Controller
                 ->get()
                 ->count();
 
-            return view('home.detailproduct', compact('product', 'comentars', 'likesCount', 'conditionLike'));
+            $stok = Product::select('stok')->where('id', $product->id)->first();
+
+            return view('home.detailproduct', compact('product', 'comentars', 'likesCount', 'conditionLike', 'stok'));
         }
     }
 
@@ -180,5 +181,16 @@ class ProductsController extends Controller
         Product::destroy($product->id);
 
         return redirect('/products')->with('status', 'Data Berhasil Dihapus');
+    }
+
+    public function search(Request $request){
+        $products = Product::where('namabarang', 'like', '%' . $request->keyword . '%')
+            ->orWhere('merk', 'like', '%' . $request->keyword . '%')
+            ->orWhere('type', 'like', '%' . $request->keyword . '%')
+            ->orWhere('description', 'like', '%' . $request->keyword . '%')
+            ->orWhere('harga', 'like', '%' . $request->keyword . '%')
+            ->orWhere('stok', 'like', '%' . $request->keyword . '%')
+            ->get();
+        return view('product.index', compact('products'));
     }
 }

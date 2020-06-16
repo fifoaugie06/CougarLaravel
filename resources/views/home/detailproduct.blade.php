@@ -4,6 +4,37 @@
 
 @section('container')
     <div class="container mt-4">
+        @if (session('modal'))
+            <script type="text/javascript">
+                window.onload = function () {
+                    let button = document.getElementById('clickButton');
+                    button.click();
+                }
+            </script>
+            <button type="button" data-toggle="modal" data-target="#exampleModal" id="clickButton"
+                    style="display: none"></button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{ session('modal') }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="card bg-light mb-3" style="padding-top: 22px;">
             <img src="{{ url('storage/images/'.$product -> gambar) }}" style="max-width: 25em;"
                  class="rounded mx-auto d-block img-thumbnail" alt="...">
@@ -33,13 +64,19 @@
                                 </button>
                             </form>
                         @endif
-                        <form method="POST" action="/transactions">
-                            @csrf
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <button type="submit" class="btn btn-sm btn-outline-dark ml-2">
-                                Beli Produk
+                        @if ($stok->stok != 0)
+                            <form method="POST" action="/transactions">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="btn btn-sm btn-outline-dark ml-2">
+                                    Beli Produk
+                                </button>
+                            </form>
+                        @else
+                            <button type="submit" class="btn btn-sm btn-outline-danger ml-2">
+                                Stok Habis
                             </button>
-                        </form>
+                        @endif
                     </div>
                     <p class="card-text">
                         <small

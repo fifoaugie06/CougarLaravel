@@ -24,6 +24,7 @@ Route::get('/logout', 'AuthController@logout');
 Route::resource('homes', 'HomesController');
 
 // Products
+Route::post('products/search', 'ProductsController@search');
 Route::resource('products', 'ProductsController');
 
 // Likes

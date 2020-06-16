@@ -14,6 +14,7 @@ class HomesController extends Controller
             return redirect('/');
         } else {
             $products = Product::all();
+
             return view('home.index', compact('products'));
         }
     }
@@ -25,7 +26,11 @@ class HomesController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $products = Product::where('namabarang', 'like', '%' . $request->search . '%')
+            ->orWhere('merk', 'like', '%' . $request->search . '%')
+            ->orWhere('type', 'like', '%' . $request->search . '%')
+            ->get();
+        return view('home.index', compact('products'));
     }
 
     public function show($id)
