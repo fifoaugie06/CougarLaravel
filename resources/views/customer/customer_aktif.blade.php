@@ -7,7 +7,8 @@
         <div class="card-body">
             <!--Button Cari dan Input Data-->
             <div class="container_top">
-                <form action="" method="POST">
+                <form action="/customers/search" method="POST">
+                    @csrf
                     <div class="item_search">
                         <div class="input-group">
                             <input name="keyword" type="text" class="form-control"
@@ -15,13 +16,6 @@
                                    aria-label="Recipient's username with two button addons"
                                    aria-describedby="button-addon4">
                             <div class="input-group-append" id="button-addon4">
-                                <select id="filter" class="btn btn-outline-secondary" name="searchby">
-                                    <option value="nama_barang">Nama Barang</option>
-                                    <option value="merk">Merk</option>
-                                    <option value="type">Type</option>
-                                    <option value="harga">Harga</option>
-                                    <option value="stok">Stok</option>
-                                </select>
                                 <button class="btn btn-outline-secondary" type="submit" name="cari">Cari
                                 </button>
                             </div>
@@ -52,7 +46,7 @@
                 <tbody>
                 @foreach($customers as $customer)
                     <tr class="content_td">
-                        <td style="text-align: center; width: 40px;">1</td>
+                        <td style="text-align: center; width: 40px;">{{ $loop->iteration }}</td>
                         <td style="text-align: center">{{ $customer->nama }}</td>
                         <td style="text-align: center">{{ $customer->alamat }}</td>
                         <td style="text-align: center">{{ $customer->kota }}</td>

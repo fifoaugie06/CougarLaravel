@@ -33,6 +33,8 @@ Route::resource('likes', 'LikesController');
 
 // Customers
 Route::get('/customers/nonaktif', 'CustomersController@customerNonAktif');
+Route::post('/customers/search', 'CustomersController@search');
+Route::post('/customers/search/nonaktif', 'CustomersController@searchnonaktif');
 Route::resource('customers', 'CustomersController');
 
 // Comentars

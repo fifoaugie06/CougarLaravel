@@ -35,6 +35,35 @@ class CustomersController extends Controller
         }
     }
 
+    public function search(Request $request)
+    {
+        if (!Session::get('login')) {
+            return redirect('/');
+        } else {
+            $customers = Customer::where('nama', 'like', '%' . $request->keyword . '%')
+                ->orWhere('alamat', 'like', '%' . $request->keyword . '%')
+                ->orWhere('kota', 'like', '%' . $request->keyword . '%')
+                ->orWhere('email', 'like', '%' . $request->keyword . '%')
+                ->get();
+            return view('customer.customer_aktif', compact('customers'));
+        }
+    }
+
+    public function searchnonaktif(Request $request)
+    {
+        if (!Session::get('login')) {
+            return redirect('/');
+        } else {
+            $customers = Customer::onlyTrashed()
+                ->where('nama', 'like', '%' . $request->keyword . '%')
+                ->orWhere('alamat', 'like', '%' . $request->keyword . '%')
+                ->orWhere('kota', 'like', '%' . $request->keyword . '%')
+                ->orWhere('email', 'like', '%' . $request->keyword . '%')
+                ->get();
+            return view('customer.customer_nonaktif', compact('customers'));
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
