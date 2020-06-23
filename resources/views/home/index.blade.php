@@ -20,37 +20,44 @@
                     Jika Barang yang Anda Cari tidak Tersedia di List Hubungi Kami.</p>
             </div>
         </section>
-        <div class="album py-5 bg-light mt-5">
-            <div class="container">
-                <div class="row">
-                    @foreach($products as $product)
-                        <div class="col-md-4">
-                            <div class="card border-secondary mb-4 box-shadow">
-                                <img class="card-img-top"
-                                     data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-                                     alt="Card image cap" src="{{ url('storage/images/'.$product -> gambar) }}">
-                                <div class="card-body">
-                                    <h5 class="card-text">{{ $product->namabarang . ' ' .$product->merk . ' ' . $product->type }}</h5>
-                                    <p class="card-text">{{ 'Rp. ' . number_format($product->harga, 0) }}</p>
-                                    <p class="card-text">{{ \Illuminate\Support\Str::limit($product->description, 200, $end='...') }}</p>
-                                    <div class="d-flex justify-content-end align-items-center">
-                                        <a href="/products/{{ $product->id }}">
-                                            <div class="btn-group">
-                                                <input type="hidden" name="kode_barang" value="">
-                                                <input type="hidden" name="kode_pembeli" value="">
-                                                <button type="submit" class="btn btn-sm btn-outline-dark" name="order">
-                                                    Detail
-                                                </button>
-                                            </div>
-                                        </a>
+        @if (sizeof($products) != 0)
+            <div class="album py-5 bg-light mt-5">
+                <div class="container">
+                    <div class="row">
+                        @foreach($products as $product)
+                            <div class="col-md-4">
+                                <div class="card border-secondary mb-4 box-shadow">
+                                    <img class="card-img-top"
+                                         data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
+                                         alt="Card image cap" src="{{ url('storage/images/'.$product -> gambar) }}">
+                                    <div class="card-body">
+                                        <h5 class="card-text">{{ $product->namabarang . ' ' .$product->merk . ' ' . $product->type }}</h5>
+                                        <p class="card-text">{{ 'Rp. ' . number_format($product->harga, 0) }}</p>
+                                        <p class="card-text">{{ \Illuminate\Support\Str::limit($product->description, 200, $end='...') }}</p>
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            <a href="/products/{{ $product->id }}">
+                                                <div class="btn-group">
+                                                    <input type="hidden" name="kode_barang" value="">
+                                                    <input type="hidden" name="kode_pembeli" value="">
+                                                    <button type="submit" class="btn btn-sm btn-outline-dark"
+                                                            name="order">
+                                                        Detail
+                                                    </button>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
+        @else
+            <div class="container mt-5">
+                <p class="card-text">Belum ada product</p>
+            </div>
+        @endif
     </main>
     @include('home.components.footer')
 @endsection
