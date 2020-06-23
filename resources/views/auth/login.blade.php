@@ -38,10 +38,13 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="d-flex justify-content-start mt-5">
+                    <div class="d-flex justify-content-between mt-5">
                         <button type="submit" class="btn btn-outline-info">Login to your Account!</button>
                     </div>
                 </form>
+                <a href="{{ url('/register') }}">
+                    <button type="submit" class="btn btn-outline-danger mt-3">Register</button>
+                </a>
             </div>
         </div>
     </div>

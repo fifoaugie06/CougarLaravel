@@ -51,8 +51,11 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Create New Account!</button>
+                    <button type="submit" class="btn btn-outline-info">Create New Account!</button>
                 </form>
+                    <a href="{{ url('/') }}">
+                        <button type="submit" class="btn btn-outline-danger mt-3">Login</button>
+                    </a>
             </div>
         </div>
     </div>
